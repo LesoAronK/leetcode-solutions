@@ -119,7 +119,7 @@ def write_solution(sub):
         return False
 
     qid = (detail.get("question") or {}).get("questionId") or "0"
-    qid_padded = str(int(qid)).zfill(2)
+    qid_padded = str(int(qid)).zfill(4)
     title = sub["title"]
     folder = os.path.join(BASE_DIR, f"{qid_padded}_{title.replace(' ', '_').lower()}")
     os.makedirs(folder, exist_ok=True)
