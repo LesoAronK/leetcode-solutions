@@ -1,7 +1,7 @@
 import os
 import requests
+import shutil
 
-# Get your LeetCode cookies from GitHub Secrets
 CSRFTOKEN = os.getenv("LEETCODE_CSRF_TOKEN")
 LEETCODE_SESSION = os.getenv("LEETCODE_SESSION")
 
@@ -10,7 +10,6 @@ headers = {
     "cookie": f"LEETCODE_SESSION={LEETCODE_SESSION}; csrftoken={CSRFTOKEN}"
 }
 
-# Map LeetCode languages to file extensions
 ext_map = {
     "python3": "py",
     "java": "java",
@@ -34,15 +33,18 @@ while True:
         break
 
     for sub in submissions:
-        if sub["status_display"] == "Accepted":   # only correct solutions
+        if sub["status_display"] == "Accepted":
             qid = sub["question_id"]
-            # overwrite older with newer → keeps latest accepted
-            latest_solutions[qid] = sub
+            latest_solutions[qid] = sub  # keep latest accepted
 
     offset += limit
 
 # Base directory for problems
 base_dir = "problems"
+
+# 🔥 Clean rebuild each run (ensures no missing problems)
+if os.path.exists(base_dir):
+    shutil.rmtree(base_dir)
 os.makedirs(base_dir, exist_ok=True)
 
 # Write one folder per problem
@@ -53,9 +55,6 @@ for qid, sub in latest_solutions.items():
     code = sub["code"]
 
     folder = os.path.join(base_dir, f"{qid}_{title.replace(' ', '_').lower()}")
-    if os.path.exists(folder):
-        continue  # skip if already present
-
     os.makedirs(folder, exist_ok=True)
 
     # README.md with problem link
