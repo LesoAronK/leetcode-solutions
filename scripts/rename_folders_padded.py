@@ -20,7 +20,7 @@ for name in sorted(os.listdir(BASE_DIR)):
         continue
 
     number, rest = match.groups()
-    padded = number.zfill(2)
+    padded = number.zfill(4)
 
     if number == padded:
         continue  # already padded correctly
