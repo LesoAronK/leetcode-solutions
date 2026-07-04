@@ -1,0 +1,14 @@
+My opinion is the best is ( Every 12 hours             0 */12 * * *   )
+
+Every 10 minutes           */10 * * * *
+Every 30 minutes           */30 * * * *
+Every hour                 0 * * * *
+Every 6 hours              0 */6 * * *
+Every 12 hours             0 */12 * * *
+Once daily at 1:22 AM       22 1 * * *
+Once daily at midnight       0 0 * * *
+Once daily at noon          0 12 * * *
+Twice daily (9 AM & 9 PM)   0 9,21 * * *
+Every weekday at 9 AM        0 9 * * 1-5
+Once weekly (Sunday midnight) 0 0 * * 0
+Once monthly (1st, midnight)  0 0 1 * *
